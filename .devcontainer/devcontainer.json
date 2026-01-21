@@ -9,7 +9,6 @@
         "--name", "vsc-mba-dsa",
         "--env-file", ".env"
     ],
-    "forwardPorts": [8000],
     "mounts": [
         {
             "source": "mba-dsa-dependencies",
@@ -59,6 +58,7 @@
                 // Utils
                 "mhutchie.git-graph",
                 "fill-labs.dependi",
+                "github.vscode-github-actions",
                 // Style and formatting
                 "DavidAnson.vscode-markdownlint",
                 "mohsen1.prettify-json",
