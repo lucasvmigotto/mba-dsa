@@ -26,6 +26,9 @@
             "type": "volume"
         }
     ],
+    "initializeCommand": {
+        "envfile": "[ ! -f '.env' ] && cp .env.example .env || echo '.env already exists'"
+    },
     "updateContentCommand": "[ -f './pyproject.toml' ] && uv sync --all-groups --all-extras || echo 'pyproject.toml not detected'",
     "customizations": {
         "vscode": {
