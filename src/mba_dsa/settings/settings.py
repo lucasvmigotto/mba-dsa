@@ -2,6 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from .datasets import DatasetsSettings
 from .gradio import GradioSettings
+from .hf import HuggingFaceSettings
 from .log import LogSettings
 
 
@@ -17,3 +18,4 @@ class Settings(BaseSettings):
     GRADIO: GradioSettings = GradioSettings()
     DATASETS: DatasetsSettings = DatasetsSettings()
     LOG: LogSettings = LogSettings()
+    HF: HuggingFaceSettings = HuggingFaceSettings()
