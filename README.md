@@ -1,9 +1,9 @@
 ---
 title: mba-dsa
-emoji: :newspaper:
-colorFrom: black
-colorTo: white
-sdk: Docker
+emoji: 📰
+colorFrom: red
+colorTo: blue
+sdk: docker
 app_port: 8080
 license: mit
 ---
