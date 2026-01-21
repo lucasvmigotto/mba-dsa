@@ -6,7 +6,7 @@ from polars import DataFrame, LazyFrame, col, concat
 from ..settings import DatasetsSettings
 
 
-def get_dataset(
+def load_data(
     settings: DatasetsSettings | None = None, /, return_lazy: bool = True
 ) -> DataFrame | LazyFrame:
     _settings = settings or DatasetsSettings()
