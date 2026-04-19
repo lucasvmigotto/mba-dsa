@@ -13,7 +13,7 @@ _UNIT_CHOICES_VALUES: UnitChoicesType = [("Percentage", "%"), ("Pixels", "px")]
 
 
 class GraphUISettings(UICommons):
-    TITLE_EMOJI: str = "\U00002601"  # ☁️
+    TITLE_EMOJI: str = "\U0001f578"  # 🕸️
     TITLE_LABEL: str = "Graph"
     NAV_TITLE: str = "Graph"
     NAV_PATH: str = "graph"

@@ -143,7 +143,7 @@ class UICommons(_BaseSettings):
 
     @computed_field
     @property
-    def pROCESS_DATA_btn_props(self: Self) -> dict[str, Any]:
+    def process_data_btn_props(self: Self) -> dict[str, Any]:
         return {
             "value": self.PROCESS_DATA_BTN_LABEL,
             "scale": self.PROCESS_DATA_BTN_scale,

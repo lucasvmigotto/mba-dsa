@@ -17,6 +17,8 @@ class LogSettings(_BaseSettings):
         ("filelock", None),
         ("fsspec", None),
         ("asyncio", None),
+        ("PIL", None),
+        ("matplotlib", None),
     }
     SUPPRESS_LEVEL: str = "ERROR"
 
