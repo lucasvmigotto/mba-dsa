@@ -2,12 +2,15 @@ from typing import Sequence
 
 from polars import DataFrame, LazyFrame, Series, col
 
+from ..schemas._types import PolarsData, PolarsDataFrames
 from .decorators import timeit
 
 
 @timeit
 def polars_to_sequence(
-    corpus: LazyFrame | DataFrame | Series, column_name: str | None = None
+    corpus: PolarsData,
+    column_name: str | None = None,
+    /,
 ) -> Sequence[str]:
     if isinstance(corpus, (LazyFrame, DataFrame)) and not column_name:
         raise ValueError(
@@ -19,10 +22,10 @@ def polars_to_sequence(
             Series: lambda c: c.to_list(),
             DataFrame: lambda c: polars_to_sequence(c.get_column(column_name)),
             LazyFrame: lambda c: polars_to_sequence(
-                c.select(col(column_name)).collect().get_column(column_name),
+                c.select(column_name).collect().get_column(column_name),
                 column_name,
             ),
-        }[type(corpus)](corpus)
+        }[type(corpus)](corpus)  # ty:ignore[invalid-argument-type]
     except KeyError:
         raise ValueError(
             f"{type(corpus)} not supported, use polars LazyFrame, DataFrame or Series instead"
@@ -54,11 +57,13 @@ def shard_by_year(
 
 
 @timeit
-def corpus_from_dataframe(df: DataFrame | LazyFrame, column_name: str) -> str:
+def corpus_from_dataframe(df: PolarsDataFrames, column_name: str, /) -> str:
     _df: DataFrame = (
         df.select(column_name).collect()
         if isinstance(df, LazyFrame)
         else df.select(column_name)
-    )
+    )  # ty:ignore[invalid-assignment]
 
-    return " ".join(_df.get_column(column_name).to_list())
+    return " ".join(
+        _df.get_column(column_name).to_list(),
+    )

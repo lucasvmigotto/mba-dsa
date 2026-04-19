@@ -9,7 +9,9 @@ from ..utils.decorators import timeit
 
 @timeit
 def init_nodes(
-    bigrams: DataFrame | Series | Sequence[str], /, column_name: str | None = None
+    bigrams: DataFrame | Series | Sequence[str],
+    /,
+    column_name: str | None = None,
 ) -> dict[str, set[str]]:
     _bigrams = (
         polars_to_sequence(bigrams, column_name)
@@ -31,7 +33,9 @@ def init_nodes(
 
 @timeit
 def build_graph(
-    nodes: dict[str, set[str]], /, directional: bool = False
+    nodes: dict[str, set[str]],
+    /,
+    directional: bool = False,
 ) -> Graph | DiGraph:
     graph = (DiGraph if directional else Graph)()
     for node, edges in nodes.items():

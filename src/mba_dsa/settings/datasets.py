@@ -1,10 +1,9 @@
-from typing import Literal
+from ..schemas._types import DatasetSplitsType
+from ._base import _BaseSettings
 
-from pydantic import BaseModel
 
-
-class DatasetsSettings(BaseModel):
+class DatasetsSettings(_BaseSettings):
     DATASET_ID: str = "lucasvmigotto/articles-g1-links"
-    SPLIT: Literal["train"] = "train"
+    SPLIT: DatasetSplitsType = "train"
 
     BATCHED_DOWNLOAD: bool = True

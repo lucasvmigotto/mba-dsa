@@ -1,4 +1,4 @@
+from .cluster import build_sub_app as build_sub_app_cluster  # noqa: F401
+from .graph import build_sub_app as build_sub_app_graph  # noqa: F401
 from .gui import build_gui as build_gui
-from .on_callback import on_btn_fn_graph as on_btn_fn_graph
-from .on_callback import on_btn_fn_vectorize as on_btn_fn_vectorize
-from .on_callback import on_btn_fn_wordcloud as on_btn_fn_wordcloud
+from .wordcloud import build_sub_app as build_sub_app_wordcloud  # noqa: F401

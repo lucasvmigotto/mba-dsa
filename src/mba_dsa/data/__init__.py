@@ -1,3 +1,4 @@
+from .cluster import cluster_analysis as cluster_analysis
 from .dataset import clean_dataframe as clean_dataframe
 from .dataset import load_data as load_data
 from .dataset import unique as unique

@@ -4,6 +4,7 @@ from .datasets import DatasetsSettings
 from .gradio import GradioSettings
 from .hf import HuggingFaceSettings
 from .log import LogSettings
+from .ui import ClusterUISettings, GraphUISettings, MainUISettings, WordCloudUISettings
 
 
 class Settings(BaseSettings):
@@ -19,3 +20,7 @@ class Settings(BaseSettings):
     DATASETS: DatasetsSettings = DatasetsSettings()
     LOG: LogSettings = LogSettings()
     HF: HuggingFaceSettings = HuggingFaceSettings()
+    UI_GRAPH: GraphUISettings = GraphUISettings()
+    UI_MAIN: MainUISettings = MainUISettings()
+    UI_WORDCLOUD: WordCloudUISettings = WordCloudUISettings()
+    CLUSTER_UI: ClusterUISettings = ClusterUISettings()
