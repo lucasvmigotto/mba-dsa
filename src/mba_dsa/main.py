@@ -2,9 +2,14 @@ from typing import Sequence
 
 
 def main() -> None:
-    from .app import build_gui, build_sub_app_graph, build_sub_app_wordcloud
+    from .app import (
+        build_gui,
+        build_sub_app_cluster,
+        build_sub_app_graph,
+        build_sub_app_wordcloud,
+    )
     from .data import clean_dataframe, load_data, unique
-    from .services import GraphCallback, WordCloudCallback
+    from .services import ClusterCallback, GraphCallback, WordCloudCallback
     from .settings import Settings
     from .utils import setup_envvars, setup_log
 
@@ -31,6 +36,11 @@ def main() -> None:
             settings.UI_WORDCLOUD,
             years_sequence,
             WordCloudCallback(settings).on_callback(lf),
+        ),
+        build_sub_app_cluster(
+            settings.CLUSTER_UI,
+            years_sequence,
+            ClusterCallback(settings).on_callback(lf),
         ),
     )
 
