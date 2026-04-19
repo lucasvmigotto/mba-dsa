@@ -1,9 +1,11 @@
-from typing import Self
+from typing import Any, Self
 
-from pydantic import BaseModel, computed_field
+from pydantic import computed_field
+
+from ._base import _BaseSettings
 
 
-class LogSettings(BaseModel):
+class LogSettings(_BaseSettings):
     LEVEL: str = "DEBUG"
     DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S"
     FORMAT: str = "{asctime} {levelname} {name}.{funcName}: {message}"
@@ -20,7 +22,7 @@ class LogSettings(BaseModel):
 
     @computed_field
     @property
-    def config(self: Self) -> dict[str, str]:
+    def config(self: Self) -> dict[str, Any]:
         return {
             "level": self.LEVEL,
             "datefmt": self.DATE_FORMAT,

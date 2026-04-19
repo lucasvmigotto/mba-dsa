@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Any, Self
 
 from pydantic import BaseModel, computed_field
 
@@ -25,7 +25,7 @@ class GradioSettings(BaseModel):
 
     @computed_field
     @property
-    def config(self: Self) -> dict[str, str]:
+    def config(self: Self) -> dict[str, Any]:
         return {
             "server_name": self.SERVER_NAME,
             "server_port": self.SERVER_PORT,
