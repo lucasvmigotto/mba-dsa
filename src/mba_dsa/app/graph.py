@@ -73,7 +73,7 @@ def build_sub_app(
                             **settings.graph_height_unit_props,
                         )
 
-            btn_process = Button(**settings.pROCESS_DATA_btn_props)
+            btn_process = Button(**settings.process_data_btn_props)
 
             with Row():
                 graph_plot = HTML()

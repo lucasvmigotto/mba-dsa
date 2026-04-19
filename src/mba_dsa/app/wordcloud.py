@@ -77,7 +77,7 @@ def build_sub_app(
                     )
 
             btn_process = Button(
-                **settings.pROCESS_DATA_btn_props,
+                **settings.process_data_btn_props,
             )
 
             with Row():
