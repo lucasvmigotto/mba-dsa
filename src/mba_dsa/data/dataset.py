@@ -3,6 +3,7 @@ from typing import Sequence
 from datasets import load_dataset
 from polars import DataFrame, LazyFrame, col, concat
 
+from ..schemas._types import PolarsDataFrames
 from ..settings import DatasetsSettings
 
 
@@ -33,13 +34,21 @@ def clean_dataframe(
 
 
 def unique(
-    df: LazyFrame | DataFrame, /, column_name: str, sort_desc: bool = True
+    df: PolarsDataFrames,
+    column_name: str,
+    /,
+    sort_desc: bool = True,
 ) -> Sequence[str]:
     unique_data: DataFrame | LazyFrame = (
-        df.select(col(column_name)).unique().sort(by=column_name, descending=sort_desc)
-    )  # type: ignore
+        df.select(col(column_name))
+        .unique()
+        .sort(
+            by=column_name,
+            descending=sort_desc,
+        )
+    )
 
     if isinstance(df, LazyFrame):
         unique_data: DataFrame = unique_data.collect()  # type: ignore
 
-    return unique_data.get_column(column_name).to_list()
+    return unique_data.get_column(column_name).to_list()  # type: ignore
