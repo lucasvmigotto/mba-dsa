@@ -1,10 +1,11 @@
+from abc import ABC
 from typing import Any, Self
 
 from pydantic import BaseModel, ConfigDict, computed_field
 
 
-class _BaseSettings(BaseModel):
-    model_config: ConfigDict = ConfigDict(
+class BaseSettings_(BaseModel, ABC):
+    model_config = ConfigDict(
         use_enum_values=True,
         validate_by_name=True,
         extra="ignore",

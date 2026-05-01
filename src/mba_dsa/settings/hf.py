@@ -3,10 +3,10 @@ from typing import Self
 
 from pydantic import DirectoryPath, computed_field
 
-from ._base import _BaseSettings
+from ._base import BaseSettings_
 
 
-class HuggingFaceSettings(_BaseSettings):
+class HuggingFaceSettings(BaseSettings_):
     HOME: DirectoryPath = Path("/tmp/.hf")
 
     @computed_field

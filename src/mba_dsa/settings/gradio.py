@@ -1,9 +1,11 @@
 from typing import Any, Self
 
-from pydantic import BaseModel, computed_field
+from pydantic import computed_field
+
+from ._base import BaseSettings_
 
 
-class GradioSettings(BaseModel):
+class GradioSettings(BaseSettings_):
     SERVER_NAME: str = "0.0.0.0"
     SERVER_PORT: int = 8080
     ANALYTICS_ENABLED: bool = False
