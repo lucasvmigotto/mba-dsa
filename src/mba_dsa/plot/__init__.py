@@ -1,4 +1,4 @@
-from .graph import generate_graph as generate_graph
-from .scatter_2d import plot_scatter_2d as plot_scatter_2d
-from .scatter_3d import plot_scatter_3d as plot_scatter_3d
-from .wordcloud import generate_wordcloud as generate_wordcloud
+from .graph import GraphPlotter as GraphPlotter
+from .scatter_2d import Scatter2dPlotter as Scatter2dPlotter
+from .scatter_3d import Scatter3dPlotter as Scatter3dPlotter
+from .wordcloud import WordCloudPlotter as WordCloudPlotter
