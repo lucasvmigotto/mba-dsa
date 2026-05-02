@@ -1,5 +1,14 @@
 from abc import ABC
-from typing import Annotated, Any, Collection, Optional, Self, Sequence, Type
+from typing import (
+    TYPE_CHECKING,
+    Annotated,
+    Any,
+    Collection,
+    Optional,
+    Self,
+    Sequence,
+    Type,
+)
 
 from polars import DataFrame, Enum, Float32, LazyFrame, Schema, Series, String, col
 from pydantic import (
@@ -13,7 +22,8 @@ from pydantic import (
 from scipy.sparse._csr import csr_matrix
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from .inputs import TFIDFInputs
+if TYPE_CHECKING:
+    from .inputs import TFIDFInputs
 
 type FilterByYearType = Annotated[
     int,
