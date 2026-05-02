@@ -1,4 +1,6 @@
-from pydantic import PositiveInt
+from typing import Self
+
+from pydantic import PositiveInt, computed_field
 
 from ..enums.inputs import SizeUnit
 from .tfidf import TFIDFInputs
@@ -15,3 +17,13 @@ class GraphInputs(TFIDFInputs):
 
     height_value: PositiveInt = 700
     height_unit: SizeUnit = SizeUnit.PIXELS
+
+    @computed_field
+    @property
+    def width_display(self: Self, /) -> str:
+        return f"{self.width_value} {self.width_unit}"
+
+    @computed_field
+    @property
+    def height_display(self: Self, /) -> str:
+        return f"{self.height_value} {self.height_unit}"

@@ -24,3 +24,8 @@ class ClusterInputs(TFIDFInputs):
     @property
     def kmeans_seed_(self: Self, /) -> float | int:
         return self.kmeans_seed or self.seed
+
+    @computed_field
+    @property
+    def is_3d(self: Self, /) -> bool:
+        return self.pca_components > 2

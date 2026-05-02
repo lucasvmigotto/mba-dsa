@@ -1,4 +1,4 @@
-from typing import Collection, Optional, Self
+from typing import Optional, Self
 
 from pydantic import PositiveInt, computed_field
 
@@ -21,11 +21,11 @@ class WordCloudInputs(TFIDFInputs):
 
     @computed_field
     @property
-    def ignore_words_(self: Self, /) -> Collection[str]:
+    def ignore_words_(self: Self, /) -> set[str]:
         return (
             {w.lower() for w in self.ignore_words.split(";")}
             if self.ignore_words
-            else {}
+            else set()
         )
 
     @computed_field
