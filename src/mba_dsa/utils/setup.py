@@ -3,7 +3,7 @@ from os import environ, getenv
 from typing import Optional
 
 from datasets.load import load_dataset
-from polars import DataFrame, LazyFrame, concat
+from polars import LazyFrame, concat
 
 from ..settings import DatasetsSettings, LogSettings
 
@@ -22,13 +22,11 @@ def setup_envvars(*envs: dict[str, str]) -> None:
                 environ[env_key] = env_value
 
 
-def load_data(
-    settings: Optional[DatasetsSettings] = None, /, lazy: bool = True
-) -> DataFrame | LazyFrame:
+def load_data(settings: Optional[DatasetsSettings] = None, /) -> LazyFrame:
     _settings = settings or DatasetsSettings()
     return concat(
         [
-            df.lazy() if lazy else df  # type: ignore
+            df.lazy()  # type: ignore
             for df in load_dataset(
                 _settings.DATASET_ID, split=_settings.SPLIT
             ).to_polars(batched=_settings.BATCHED_DOWNLOAD)
