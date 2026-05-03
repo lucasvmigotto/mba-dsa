@@ -1,37 +1,34 @@
-from typing import Literal, Sequence
+from typing import Self, Sequence, Type
 
 from PIL.Image import Image
 from wordcloud import WordCloud
 
-from ..utils.decorators import timeit
+from ..schemas.inputs import WordCloudInputs
+from ._base import PlotterBase_
 
 
-@timeit
-def generate_wordcloud(
-    corpus: str,
-    /,
-    ignore: Sequence[str] | None | None = None,
-    background_color: str | None = "white",
-    max_words: int | None | None = None,
-    max_font_size: int | None = 30,
-    width: int | None = 800,
-    height: int | None = 800,
-    colormap: str | None = "tab10",
-    mode: Literal["RGBA", "RGB"] | None = "RGB",
-    seed: int | None = 42,
-) -> Image:
-    return (
-        WordCloud(
-            stopwords=ignore,
-            background_color=background_color,
-            max_words=max_words,
-            max_font_size=max_font_size,
-            width=width,
-            height=height,
-            colormap=colormap,
-            random_state=seed,
-            mode=mode,
+class WordCloudPlotter(PlotterBase_):
+    @classmethod
+    def image(
+        cls: Type[Self],
+        corpus: Sequence[str],
+        /,
+        *args,
+        **kwargs,
+    ) -> Image:
+        inputs: WordCloudInputs = WordCloudInputs(**kwargs)
+        return (
+            WordCloud(
+                stopwords=inputs.ignore_words_,
+                background_color=inputs.background_color_mode,
+                max_words=inputs.max_words,
+                max_font_size=inputs.max_fontsize,
+                width=inputs.plot_width,
+                height=inputs.plot_height,
+                colormap=inputs.colormap,
+                random_state=inputs.seed,
+                mode=inputs.colormode,
+            )
+            .generate(corpus)
+            .to_image()
         )
-        .generate(corpus)
-        .to_image()
-    )

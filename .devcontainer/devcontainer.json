@@ -12,7 +12,7 @@
         },
         {
             "source": "mba-dsa-hf-cache",
-            "target": "/home/developer/.hf",
+            "target": "/home/developer/hf",
             "type": "volume"
         },
         {

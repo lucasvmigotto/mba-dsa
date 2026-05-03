@@ -1,4 +1,3 @@
-from ._commons import InputsCommons as InputsCommons
 from .cluster import ClusterInputs as ClusterInputs
 from .graph import GraphInputs as GraphInputs
 from .tfidf import TFIDFInputs as TFIDFInputs

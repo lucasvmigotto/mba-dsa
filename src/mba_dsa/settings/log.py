@@ -2,13 +2,13 @@ from typing import Any, Self
 
 from pydantic import computed_field
 
-from ._base import _BaseSettings
+from ._base import BaseSettings_
 
 
-class LogSettings(_BaseSettings):
+class LogSettings(BaseSettings_):
     LEVEL: str = "DEBUG"
     DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S"
-    FORMAT: str = "{asctime} {levelname} {name}.{funcName}: {message}"
+    FORMAT: str = "{asctime} {levelname} {name}.{funcName}.{lineno}: {message}"
     STYLE: str = "{"
 
     SUPPRESS_MODULES: set[tuple[str, str | None]] = {
