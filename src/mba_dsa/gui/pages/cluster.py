@@ -9,6 +9,7 @@ from gradio import (
     Number,
     Plot,
     Row,
+    Tab,
 )
 
 from ..components import ClusterPage
@@ -76,9 +77,11 @@ def build_subapp(
                 **ui.btn_create.dump(),
             )
 
-            plot_cluster: Plot = Plot(
-                label=str(ui.title.emoji_text),
-            )
+            with Tab(**ui.tab_2d.dump()):
+                plot_cluster_2d: Plot = Plot(label=str(ui.label_2d))
+
+            with Tab(**ui.tab_3d.dump()):
+                plot_cluster_3d: Plot = Plot(label=str(ui.label_3d))
 
             btn_create.click(
                 fn=on_btn_create_callback,
@@ -97,7 +100,7 @@ def build_subapp(
                     kmeans_n_clusters,
                     kmeans_seed,
                 ],
-                outputs=plot_cluster,
+                outputs=[plot_cluster_2d, plot_cluster_3d],
             )
 
             gui.load(
