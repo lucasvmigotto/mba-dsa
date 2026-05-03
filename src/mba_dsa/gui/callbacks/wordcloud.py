@@ -1,13 +1,15 @@
 from typing import Self
 
+from gradio import Image
+
+from ...plot import WordCloudPlotter
 from ...schemas.enums.inputs import BackgroundColorMode, ColorMap, ColorMode, SortOrder
+from ...schemas.inputs import WordCloudInputs
+from ...schemas.wordcloud import WordCloud
 from ._base import OnCallbackBase
 
 
 class WordCloudCallback(OnCallbackBase):
-    async def on_btn_create_callback_async(self: Self, /, *args, **kwargs):
-        return self.on_btn_create_callback(*args, **kwargs)
-
     def on_btn_create_callback(
         self: Self,
         dropdown_year: int,
@@ -28,5 +30,27 @@ class WordCloudCallback(OnCallbackBase):
         plot_width: int,
         plot_height: int,
         /,
-    ):
-        return None
+    ) -> Image:
+        return Image(
+            value=WordCloudPlotter.image(
+                WordCloud.get_corpus(self._lf, dropdown_year),
+                **WordCloudInputs(
+                    max_features=tfidf_features,
+                    score_limit=tfidf_score_limit,
+                    score_threshold=tfidf_score_threshold,
+                    score_filter=tfidf_score_sort,
+                    min_df=tfidf_min_df,
+                    max_df=tfidf_max_df,
+                    ngram_range_min=tfidf_min_ngram,
+                    ngram_range_max=tfidf_max_ngram,
+                    ignore_words=ignore_words,
+                    background_color_mode=background_color_mode,
+                    colormap=colormap,
+                    colormode=colormode,
+                    max_words=max_words,
+                    max_fontsize=max_fontsize,
+                    plot_width=plot_width,
+                    plot_height=plot_height,
+                ).model_dump(),
+            ),
+        )
