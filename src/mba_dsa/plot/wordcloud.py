@@ -1,6 +1,6 @@
-from typing import Self, Sequence
+from typing import Self, Sequence, Type
 
-from PIL.ImageFile import ImageFile
+from PIL.Image import Image
 from wordcloud import WordCloud
 
 from ..schemas.inputs import WordCloudInputs
@@ -8,13 +8,14 @@ from ._base import PlotterBase_
 
 
 class WordCloudPlotter(PlotterBase_):
+    @classmethod
     def image(
-        self: Self,
+        cls: Type[Self],
         corpus: Sequence[str],
         /,
         *args,
         **kwargs,
-    ) -> ImageFile:
+    ) -> Image:
         inputs: WordCloudInputs = WordCloudInputs(**kwargs)
         return (
             WordCloud(

@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Self, Type
 
 from plotly.graph_objects import Figure, Scatter
 from polars import DataFrame
@@ -7,8 +7,9 @@ from ._base import PlotterBase_
 
 
 class Scatter2dPlotter(PlotterBase_):
+    @classmethod
     def plot(
-        self: Self,
+        cls: Type[Self],
         df: DataFrame,
         /,
         *axes: str,
@@ -16,7 +17,7 @@ class Scatter2dPlotter(PlotterBase_):
     ) -> Figure:
         col_x, col_y, *_ = axes
         col_clusters: str = kwargs["col_clusters"]
-        _palette = self._palette[
+        _palette = cls._palette[
             : len((clusters := df.get_column(col_clusters)).unique())
         ]
         (
@@ -30,14 +31,14 @@ class Scatter2dPlotter(PlotterBase_):
                         customdata=df.select("year", "month", "lemmas"),
                         hovertemplate=(
                             "%{customdata[2]}"
-                            "<extra>%{customdata[1]:$.02d}"
+                            "<extra>%{customdata[1]:.02d}"
                             "/%{customdata[0]}</extra>"
                         ),
                     )
                 ]
             )
         ).update_layout(
-            height=800,
+            height=700,
         )
 
         fig.update_xaxes(

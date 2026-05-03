@@ -22,8 +22,9 @@ class GraphPlotter(PlotterBase_):
             </iframe>
         """
 
+    @classmethod
     def graph(
-        self: Self,
+        cls: Type[Self],
         graph: Graph | DiGraph,
         /,
         *args,
@@ -31,7 +32,7 @@ class GraphPlotter(PlotterBase_):
     ) -> str:
         inputs = GraphInputs(**kwargs)
         plot = Network(
-            cdn_resources="in_line",
+            cdn_resources="remote",
             width=inputs.width_display,
             height=inputs.height_display,
             directed=isinstance(graph, DiGraph),
@@ -47,7 +48,7 @@ class GraphPlotter(PlotterBase_):
             spring_length=inputs.spring_length,
         )
 
-        return self.iframe_wrapper(
+        return cls.iframe_wrapper(
             plot.generate_html(),
             inputs=inputs,
         )

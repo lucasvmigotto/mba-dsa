@@ -6,6 +6,7 @@ from matplotlib.colors import to_hex
 from matplotlib.figure import Figure as MatplotFigure
 from matplotlib.pyplot import get_cmap
 from networkx import DiGraph, Graph
+from PIL.Image import Image
 from PIL.Image import open as pil_open
 from PIL.ImageFile import ImageFile
 from plotly.graph_objects import Figure
@@ -15,6 +16,13 @@ from ..schemas.enums.plot import ImageFormatType
 
 
 class PlotterBase_(ABC):
+    _palette: Sequence[str] = list(
+        map(
+            to_hex,
+            get_cmap("tab20")(range(20)),
+        )
+    )
+
     @classmethod
     def from_figure_to_image(
         cls: Type[Self],
@@ -30,16 +38,9 @@ class PlotterBase_(ABC):
 
         return next(_fn())
 
-    def __init__(self: Self, /):
-        self._palette: Sequence[str] = list(
-            map(
-                to_hex,
-                get_cmap("tab20")(range(20)),
-            )
-        )
-
+    @classmethod
     def graph(
-        self: Self,
+        cls: Type[Self],
         graph: Graph | DiGraph,
         /,
         *args,
@@ -47,35 +48,40 @@ class PlotterBase_(ABC):
     ) -> str:
         raise NotImplementedError()
 
+    @classmethod
     async def graph_async(
-        self: Self,
+        cls: Type[Self],
         graph: Graph | DiGraph,
         /,
         *args,
         **kwargs,
     ) -> str:
-        return self.graph(graph)
+        return cls.graph(graph)
 
-    def plot(self: Self, df: DataFrame, /, *axes: str) -> Figure:
+    @classmethod
+    def plot(cls: Type[Self], df: DataFrame, /, *axes: str) -> Figure:
         raise NotImplementedError()
 
-    async def plot_async(self: Self, df: DataFrame, /, *axes: str) -> Figure:
-        return self.plot(df)
+    @classmethod
+    def plot_async(cls: Type[Self], df: DataFrame, /, *axes: str) -> Figure:
+        return cls.plot(df)
 
+    @classmethod
     def image(
-        self: Self,
+        cls: Type[Self],
         corpus: Sequence[str],
         /,
         *args,
         **kwargs,
-    ) -> ImageFile:
+    ) -> Image:
         raise NotImplementedError()
 
+    @classmethod
     async def image_async(
-        self: Self,
+        cls: Type[Self],
         corpus: Sequence[str],
         /,
         *args,
         **kwargs,
-    ) -> ImageFile:
-        return self.image(corpus)
+    ) -> Image:
+        return cls.image(corpus)
