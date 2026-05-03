@@ -21,9 +21,9 @@ class GraphInputs(TFIDFInputs):
     @computed_field
     @property
     def width_display(self: Self, /) -> str:
-        return f"{self.width_value} {self.width_unit}"
+        return f"{self.width_value}{self.width_unit}"
 
     @computed_field
     @property
     def height_display(self: Self, /) -> str:
-        return f"{self.height_value} {self.height_unit}"
+        return f"{self.height_value}{self.height_unit}"

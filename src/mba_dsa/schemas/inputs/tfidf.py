@@ -25,3 +25,8 @@ class TFIDFInputs(BaseInput_):
     @property
     def ngram_range(self: Self, /) -> tuple[int, int]:
         return self.ngram_range_min, self.ngram_range_max
+
+    @computed_field
+    @property
+    def score_filter_descending(self: Self, /) -> bool:
+        return self.score_filter == SortOrder.DESC

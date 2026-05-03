@@ -14,7 +14,7 @@ class SortOrder(AsChoice_):
 
     @property
     def is_descending(self: Self, /) -> bool:
-        return self.value == self.DESC
+        return self == self.DESC
 
 
 class SizeUnit(AsChoice_):

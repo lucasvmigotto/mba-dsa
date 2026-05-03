@@ -4,8 +4,8 @@ from enum import StrEnum
 class EmojisType(StrEnum):
     KMEANS_CLUSTER = "\U00002728"  # ✨
     COMPONENT = "\U0001f4e6"  # 📦
-    LAYOUT = "\U00001f6a7"  # 🚧
-    DISTANCE = "\U00001f6e4"  # 🛤️
+    LAYOUT = "\U0001f6a7"  # 🚧
+    DISTANCE = "\U0001f6e4"  # 🛤️
     DIRECTIONAL = "\U00002197"  # ↗️
     LIMIT = "\U0000267e"  # ♾️
     THRESHOLD = "\U0001f321"  # 🌡️
@@ -35,3 +35,5 @@ class EmojisType(StrEnum):
     IGNORE = "\U0001f648"  # 🙈
     COUNT = "\U0001f5a9"  # 🖩
     FONTSIZE = "\U0001f5db"  # 🗛
+    TWO_D = "\U0001f533"  # 🔳
+    THREE_D = "\U0001f9ca"  # 🧊
