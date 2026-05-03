@@ -67,7 +67,7 @@ class GraphPage(BaseTFIDF_):
     @property
     def dropdown_width(self: Self, /) -> Dropdown:
         return Dropdown(
-            label=self.label_width,
+            label=self.label_unit,
             value=self._DEFAULTS.width_unit,
             choices=SizeUnit.as_choices(),
         )
@@ -77,14 +77,14 @@ class GraphPage(BaseTFIDF_):
     def number_height(self: Self, /) -> Number:
         return Number(
             label=self.label_height,
-            value=self._DEFAULTS.width_value,
+            value=self._DEFAULTS.height_value,
         )
 
     @computed_field
     @property
     def dropdown_height(self: Self, /) -> Dropdown:
         return Dropdown(
-            label=self.label_height,
+            label=self.label_unit,
             value=self._DEFAULTS.height_unit,
             choices=SizeUnit.as_choices(),
         )

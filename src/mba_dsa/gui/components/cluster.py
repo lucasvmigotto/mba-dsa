@@ -4,7 +4,7 @@ from pydantic import computed_field
 
 from ...schemas.enums.emojis import EmojisType
 from ...schemas.inputs import ClusterInputs
-from ..components._base import Label, Number
+from ..components._base import Label, Number, Tab
 from .tfidf import BaseTFIDF_
 
 
@@ -13,7 +13,7 @@ class ClusterPage(BaseTFIDF_):
 
     title: Label = Label(
         emoji=EmojisType.CLUSTER,
-        text="cluster 2d",
+        text="cluster",
     )
 
     label_pca_components: Label = Label(
@@ -34,6 +34,18 @@ class ClusterPage(BaseTFIDF_):
     label_kmeans_seed: Label = Label(
         emoji=EmojisType.SEED,
         text="kmeans seed",
+    )
+
+    label_2d: Label = Label(
+        emoji=EmojisType.TWO_D,
+        text="2D",
+        titlelize=False,
+    )
+
+    label_3d: Label = Label(
+        emoji=EmojisType.THREE_D,
+        text="3D",
+        titlelize=False,
     )
 
     @computed_field
@@ -67,3 +79,13 @@ class ClusterPage(BaseTFIDF_):
             label=self.label_kmeans_seed,
             value=self._DEFAULTS.kmeans_seed,
         )
+
+    @computed_field
+    @property
+    def tab_2d(self: Self, /) -> Tab:
+        return Tab(label=self.label_2d)
+
+    @computed_field
+    @property
+    def tab_3d(self: Self, /) -> Tab:
+        return Tab(label=self.label_3d)
