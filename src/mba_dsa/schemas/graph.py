@@ -4,13 +4,11 @@ from networkx import DiGraph as DiGraphNx
 from networkx import Graph as GraphNx
 from polars import DataFrame, LazyFrame
 
-from ..utils import timeit
 from ._base import BaseDataEntry_, FilterByYearType
 from .inputs import GraphInputs, TFIDFInputs
 
 
 class Graph(BaseDataEntry_):
-    @timeit
     @classmethod
     def nodes_from_ngrams(
         cls: Type[Self],
@@ -33,7 +31,6 @@ class Graph(BaseDataEntry_):
 
         return nodes
 
-    @timeit
     @classmethod
     def graph_from_nodes(
         cls: Type[Self],
@@ -50,7 +47,6 @@ class Graph(BaseDataEntry_):
 
         return graph
 
-    @timeit
     @classmethod
     def build_graph(
         cls: Type[Self],
@@ -74,7 +70,7 @@ class Graph(BaseDataEntry_):
                     vec,
                     options=tfidf_options,
                 ),
-                col_name="score",
+                col_name="words",
             ),
             options=options_,
         )

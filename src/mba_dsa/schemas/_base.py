@@ -10,7 +10,7 @@ from typing import (
     Type,
 )
 
-from polars import DataFrame, Enum, Float32, LazyFrame, Schema, Series, String, col
+from polars import DataFrame, Enum, LazyFrame, Series, String, col
 from pydantic import (
     AfterValidator,
     BaseModel,
@@ -94,13 +94,14 @@ class BaseDataEntry_(BaseSchema_, ABC):
         cls: Type[Self],
         pf: DataFrame,
         /,
-        col_lemmas: str = "lemmas",
+        col_name: str = "lemmas",
     ) -> DataFrame:
         return pf.with_columns(
-            col(name=col_lemmas)
+            col(name=col_name)
             .str.replace_all(r"\b\w{2}\b", "")
             .str.replace_all(r"\s+", " ")
             .str.strip_chars()
+            .alias(col_name)
         )
 
     @classmethod
@@ -111,11 +112,12 @@ class BaseDataEntry_(BaseSchema_, ABC):
         /,
         **kwargs,
     ) -> DataFrame:
+
         return DataFrame(
             data=lf.filter(
                 col(name="year") == year,
-            ),
-            schema=Schema(cls.df_schema()),
+            ).collect(),
+            schema=cls.df_schema(),
         ).pipe(function=cls.pipe_clean_lemmas)
 
     @classmethod
@@ -153,15 +155,12 @@ class BaseDataEntry_(BaseSchema_, ABC):
                 data={
                     "words": vectorizer.get_feature_names_out(),
                     "score": features.sum(axis=0).A1,
-                },
-                schema=Schema(
-                    {
-                        "words": tuple[String, String],
-                        "score": Float32,
-                    },
-                ),
+                }
             )
-            .sort(by="score", descending=options_.score_filter.is_descending)
+            .sort(
+                by="score",
+                descending=options_.score_filter_descending,
+            )
             .limit(n=options_.score_limit)
             .filter(
                 (col(name="score") > options_.score_threshold)

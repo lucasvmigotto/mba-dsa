@@ -6,13 +6,11 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from ..utils import timeit
 from ._base import BaseDataEntry_, FilterByYearType
 from .inputs import ClusterInputs, TFIDFInputs
 
 
 class Cluster(BaseDataEntry_):
-    @timeit
     @classmethod
     def decomposition(
         cls: Type[Self],
@@ -32,7 +30,6 @@ class Cluster(BaseDataEntry_):
             schema=[f"{col_name_prefix}{i}" for i in range(components)],
         ), model
 
-    @timeit
     @classmethod
     def clustering(
         cls: Type[Self],
@@ -52,7 +49,6 @@ class Cluster(BaseDataEntry_):
             schema=[col_name],
         ), model
 
-    @timeit
     @classmethod
     def analysis(
         cls: Type[Self],
